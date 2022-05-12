@@ -2,9 +2,15 @@ import Head from 'next/head'
 import Image from 'next/image'
 import prisma from '../lib/prisma'
 import Navbar from 'components/Navbar'
-import { Flex, Heading, Stack, VStack,Box, Text } from '@chakra-ui/react'
+import {Heading, Stack, VStack} from '@chakra-ui/react'
+import Cards from 'components/Cards'
+import InputField from 'components/InputField'
+import { useState } from 'react'
 
 export default function Home({cars}) {
+
+
+
   console.log(cars)
   return (
     <div className='w-full min-h-screen'>
@@ -22,18 +28,14 @@ export default function Home({cars}) {
     </Stack>
 
 
-    <Stack w='full' display={'flex'}>
-      <Box>
-      {cars.map((car)=> {
-        return <Flex my={8} color={'white'} flexDirection={'column'} mx={2} px={4} h='7rem' bgColor={'gray.700'}>
-          <Box py={1}><Text >{car.brand}</Text></Box>
-          <Box py={1}><Text >{car.model}</Text></Box>
-          <Box py={1}><Text >{car.created_at}</Text></Box>
-        </Flex>
-      })}
+    <VStack w='full'>
 
-      </Box>
-    </Stack>
+    <InputField/>
+
+    <Cards cars={cars}/>
+    </VStack>
+
+
 
 
 

@@ -1,5 +1,17 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import prisma from '/lib/prisma'
 
-export default function handler(req, res) {
-  res.status(200).json({ name: 'John Doe' })
+// POST /api/post
+// Required fields in body: title
+// Optional fields in body: content
+export default async function handle(req, res) {
+  const { brand, model,radio } = req.body;
+
+  const result = await prisma.Car.create({
+    data: {
+      brand: brand,
+      model: model,
+    },
+  });
+  res.status(200) ? res.status(200).json({status:'Submitted'}) : res.status(401).json({status:'error'})
+
 }

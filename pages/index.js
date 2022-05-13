@@ -32,7 +32,9 @@ export default function Home({cars}) {
 
     <InputField/>
 
+
     <Cards cars={cars}/>
+    
     </VStack>
 
 

@@ -9,9 +9,12 @@ function InputField() {
   const [model, setModel] = useState("")
   const [radio, setRadio] = useState()
   const [loading,setLoading] = useState()
+  const [status,setStatus] = useState()
+
   
   const Router = useRouter()
 
+  console.log(status)
   const submitData = async (e) => {
     e.preventDefault();
     try {
@@ -21,9 +24,12 @@ function InputField() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
-      });
-      setLoading(true)
-      await Router.push('')
+      }).then(response => {
+        setLoading(true)
+        setStatus(response)
+        return response
+      })
+      await Router.push('/')
     } catch (error) {
       console.error(error);
     }
@@ -54,7 +60,11 @@ function InputField() {
           <Button disabled={!brand || !model}  type='submit' bgColor={'green.400'} _hover={{ bgColor: 'green.600' }}>
           {loading ? (
                       <Spinner size={"md"} />
-                    ) : 'Add'}
+                    ) : status?.status === 200 ? (
+                      'Added!'
+                    ) : (
+                      `Add`
+                    )}
           </Button>
         </Stack>
 

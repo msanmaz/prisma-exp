@@ -27,19 +27,14 @@ export default function Home({ cars }) {
 
       <Flex display={'flex'} justifyContent={'space-between'} maxW='2000px' px={{ base: 0, md: '5rem' }} mx='auto'>
 
-    <Box w={{base:'18%',md:'20%'}}>
-    <SimpleSidebar />
-    </Box>
+        <Box w={{ base: '18%', md: '20%' }}>
+          <SimpleSidebar />
+        </Box>
 
 
-
-    <Box w={'40%'} flex='1'>
-    <Feed posts={cars} />
-    </Box>
-
-
-
-
+        <Box flex='1'>
+          <Feed posts={cars} />
+        </Box>
 
       </Flex>
 
@@ -62,7 +57,11 @@ export default function Home({ cars }) {
 
 export async function getServerSideProps() {
 
-  let cars = await prisma.Car.findMany()
+  let cars = await prisma.Posts.findMany({
+    orderBy:{
+      created_at:'desc'
+    }
+  })
   cars = JSON.parse(JSON.stringify(cars))
 
   return {

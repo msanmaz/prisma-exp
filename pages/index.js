@@ -2,18 +2,20 @@ import Head from 'next/head'
 import Image from 'next/image'
 import prisma from '../lib/prisma'
 import Navbar from 'components/Navbar'
-import {Heading, Stack, VStack} from '@chakra-ui/react'
+import { Center, Heading, HStack, Spacer, Stack, VStack,Box } from '@chakra-ui/react'
 import Cards from 'components/Cards'
 import InputField from 'components/InputField'
 import { useState } from 'react'
+import SimpleSidebar from 'components/Sidebar'
+import Feed from 'components/Timeline/Feed'
 
-export default function Home({cars}) {
+export default function Home({ cars }) {
 
 
 
   console.log(cars)
   return (
-    <div className='w-full min-h-screen'>
+    <div className=''>
 
       <Head>
         <title>Create Next App</title>
@@ -21,21 +23,23 @@ export default function Home({cars}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar/>
-
-    <Stack display={'flex'} justifyContent={'center'} alignItems={'center'}>
-    <Heading>Cars</Heading> 
-    </Stack>
 
 
-    <VStack w='full'>
+        <Stack display={'flex'} minH={'100vh'} maxW='1515px' mx='auto'>
+          
+          <SimpleSidebar />
+         
 
-    <InputField/>
+        <Center>
+        <Feed posts={cars} />
+        </Center>
+ 
+
+        </Stack>
 
 
-    <Cards cars={cars}/>
-    
-    </VStack>
+
+
 
 
 
@@ -56,6 +60,6 @@ export async function getServerSideProps() {
   cars = JSON.parse(JSON.stringify(cars))
 
   return {
-    props : { cars }
+    props: { cars }
   }
 }

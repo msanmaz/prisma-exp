@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import prisma from '../lib/prisma'
 import Navbar from 'components/Navbar'
-import { Center, Heading, HStack, Spacer, Stack, VStack,Box } from '@chakra-ui/react'
+import { Center, Heading, HStack, Spacer, Stack, Flex, Box } from '@chakra-ui/react'
 import Cards from 'components/Cards'
 import InputField from 'components/InputField'
 import { useState } from 'react'
@@ -25,17 +25,23 @@ export default function Home({ cars }) {
 
 
 
-        <Stack display={'flex'} minH={'100vh'} maxW='1515px' mx='auto'>
-          
-          <SimpleSidebar />
-         
+      <Flex display={'flex'} justifyContent={'space-between'} maxW='2000px' px={{ base: 0, md: '5rem' }} mx='auto'>
 
-        <Center>
-        <Feed posts={cars} />
-        </Center>
- 
+    <Box w={{base:'18%',md:'20%'}}>
+    <SimpleSidebar />
+    </Box>
 
-        </Stack>
+
+
+    <Box w={'40%'} flex='1'>
+    <Feed posts={cars} />
+    </Box>
+
+
+
+
+
+      </Flex>
 
 
 

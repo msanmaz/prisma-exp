@@ -45,7 +45,7 @@ const LinkItems = [
 export default function SimpleSidebar() {
 
   return (
-    <div className=" sm:flex flex-col items-center md:w-[17.5%] xl:items-start xl:w-[240px] 2xl:w-[340px] fixed h-full">
+    <div className=" items-center fixed h-full">
       <SidebarContent/>
       
     </div>
@@ -60,7 +60,7 @@ const SidebarContent = ({  ...rest }) => {
       bg={useColorModeValue('white', 'gray.900')}
       borderRight="1px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-      w={{ base: '15%', md:'17.5%', xl:'240px', '2xl':'340px' }}
+      w={{ base: '18%', md:'17.5%', xl:'18%', '2xl':'340px' }}
       pos="fixed"
       h="full"
       {...rest}>
@@ -102,6 +102,7 @@ const NavItem = ({ icon, children, ...rest }) => {
         borderRadius="lg"
         role="group"
         cursor="pointer"
+        overflow={'hidden'}
         _hover={{
           bg: 'cyan.400',
           color: 'white',

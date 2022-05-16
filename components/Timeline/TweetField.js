@@ -5,12 +5,12 @@ function TweetField({post}) {
  return (
     <>
     <Flex w='full' my={4} px={4} h={'9rem'} bgColor='gray.700'>
-        <HStack>
-        <Box  w='full'>
+        <HStack w='full'>
+        <Box  w='10%'>
         <Image rounded={'9999px'}  w={'2.75rem'} h={'2.75rem'}  src='/blank-profile-picture.webp' />
         </Box>
-        <Box>
-    {post.brand}
+        <Box w='100%'>
+    {post.post}
         </Box>
         </HStack>
     </Flex>

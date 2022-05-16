@@ -36,7 +36,7 @@ export default function Home({ cars }) {
           </Flex>
           
           <Flex  w={{base:'100%',md:'50%'}} h='full'>
-          <Box>
+          <Box w='full'>
               <Feed posts={cars}/>
             </Box>
 
@@ -73,7 +73,11 @@ export default function Home({ cars }) {
 
 export async function getServerSideProps() {
 
-  let cars = await prisma.Car.findMany()
+  let cars = await prisma.Posts.findMany({
+    orderBy:{
+      created_at:'desc'
+    }
+  })
   cars = JSON.parse(JSON.stringify(cars))
 
   return {

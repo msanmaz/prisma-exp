@@ -18,3 +18,10 @@ model Car {
   created_at DateTime @default(now())
   bought     Boolean  @default(false)
 }
+
+
+model Posts {
+  id         Int      @id @default(autoincrement())
+  post      String
+  created_at DateTime @default(now())
+  }

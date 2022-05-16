@@ -10,7 +10,7 @@ function TweetField({post}) {
         <Image rounded={'9999px'}  w={'2.75rem'} h={'2.75rem'}  src='/blank-profile-picture.webp' />
         </Box>
         <Box>
-    {post.post}
+    {post.brand}
         </Box>
         </HStack>
     </Flex>

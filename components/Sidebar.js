@@ -45,10 +45,10 @@ const LinkItems = [
 export default function SimpleSidebar() {
 
   return (
-    <div className=" items-center fixed h-full">
+    <>
       <SidebarContent/>
       
-    </div>
+    </>
   );
 }
 
@@ -60,8 +60,7 @@ const SidebarContent = ({  ...rest }) => {
       bg={useColorModeValue('white', 'gray.900')}
       borderRight="1px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-      w={{ base: '18%', md:'17.5%', xl:'18%', '2xl':'340px' }}
-      pos="fixed"
+      w='full'
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="6" justifyContent="space-between">
@@ -118,7 +117,7 @@ const NavItem = ({ icon, children, ...rest }) => {
             as={icon}
           />
         )}
-        <Box display={{base:'none',md:'block'}}>
+        <Box display={{base:'none',md:'block'}}     >
         {children}
         </Box>
 

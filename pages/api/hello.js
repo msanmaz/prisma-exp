@@ -4,11 +4,12 @@ import prisma from '/lib/prisma'
 // Required fields in body: title
 // Optional fields in body: content
 export default async function handle(req, res) {
-  const { input} = req.body;
+  const { brand, model,radio } = req.body;
 
-  const result = await prisma.Posts.create({
+  const result = await prisma.Car.create({
     data: {
-      post:input
+      brand: brand,
+      model: model,
     },
   });
   res.status(200) ? res.status(200).json({status:'Submitted'}) : res.status(401).json({status:'error'})

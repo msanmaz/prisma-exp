@@ -30,6 +30,7 @@ import {
 import { IconType } from 'react-icons';
 import {signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router';
+import Link from 'next/link'
 
 
 
@@ -88,20 +89,20 @@ const SidebarContent = ({  ...rest }) => {
       <Box px={6} my={4}>
       <button className="hidden xl:inline ml-auto bg-[#1d9bf0] text-white rounded-full w-[10rem] h-[52px] text-lg font-bold shadow-md hover:bg-[#1a8cd8]">
 {session ? (
-  <p>
-    {session.user.email}{' '}
-    <button
+      <button
       onClick={() => {
         signOut()
         router.push('/')
       }}
     >
+    {session.user.email}{' '}
+
       logout
     </button>
-  </p>
-):    <a href='/api/auth/signin'>
+
+):    <Link href='/api/auth/signin'>
 login
-</a> }
+</Link> }
       </button>
       </Box>
 

@@ -8,12 +8,11 @@ import InputField from 'components/InputField'
 import { useState } from 'react'
 import SimpleSidebar from 'components/Sidebar'
 import Feed from 'components/Timeline/Feed'
+import { useSession } from 'next-auth/react'
 
 export default function Home({ cars }) {
-
-
-
-  console.log(cars)
+  const { data: session, status } = useSession()
+  
   return (
     <div className=''>
 

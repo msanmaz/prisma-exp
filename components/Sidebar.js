@@ -28,6 +28,10 @@ import {
   FiList
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
+import {signOut, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router';
+
+
 
 
 const LinkItems = [
@@ -55,6 +59,8 @@ export default function SimpleSidebar() {
 
 
 const SidebarContent = ({  ...rest }) => {
+  const { data: session, status } = useSession()
+  const router = useRouter()
   return (
     <Box
       bg={useColorModeValue('white', 'gray.900')}
@@ -81,7 +87,21 @@ const SidebarContent = ({  ...rest }) => {
       ))}
       <Box px={6} my={4}>
       <button className="hidden xl:inline ml-auto bg-[#1d9bf0] text-white rounded-full w-[10rem] h-[52px] text-lg font-bold shadow-md hover:bg-[#1a8cd8]">
-        Tweet
+{session ? (
+  <p>
+    {session.user.email}{' '}
+    <button
+      onClick={() => {
+        signOut()
+        router.push('/')
+      }}
+    >
+      logout
+    </button>
+  </p>
+):    <a href='/api/auth/signin'>
+login
+</a> }
       </button>
       </Box>
 

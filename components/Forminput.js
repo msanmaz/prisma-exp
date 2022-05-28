@@ -12,7 +12,7 @@ function FormInput({ param, register }) {
         <>
             <FormControl py={2} isRequired>
                 <FormLabel htmlFor='first-name'>{param.alias}</FormLabel>
-                <Input id={param.name} type={param.type}   bg={useColorModeValue('gray.100', 'gray.700')}
+                <Input id={param.name} value={param.value} type={param.type}   bg={useColorModeValue('gray.100', 'gray.700')}
                     _placeholder={{
                         color: 'gray.400',
                     }} placeholder={param.alias} {...register(param.name,{

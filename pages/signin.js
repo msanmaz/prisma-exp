@@ -1,15 +1,35 @@
 import React from 'react'
 import SignInForm from 'components/SignInForm'
 import { Center, Heading, VStack,Container,Box } from '@chakra-ui/react'
+import { signIn, getSession, getProviders } from "next-auth/react";
 
 
-const addressParams = [
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  if(session) {
+    return {
+      redirect: {
+        permanent:false,
+        destination:'/home'
+      }
+    }
+  }
+  return {
+    props: {
+      providers:await getProviders(context)
+    }
+  }
+}
+
+
+
+const SignIn = ({providers}) => {
+  const addressParams = [
     { name: "email", type: 'text', alias: 'email',style:'100%', minLength:3 },
     { name: "password", type: 'password', alias: 'Password' ,style:'100%'},
+    { name: "credentialsID", type: 'hidden' },
+
   ]
-
-const SignIn = () => {
-
 
     
     return (
@@ -20,7 +40,7 @@ const SignIn = () => {
         <Heading mt={'2rem'}>Sign Up</Heading>
         </Center>
 
-      <SignInForm addressParams={addressParams}  />
+      <SignInForm addressParams={addressParams} providers={providers}  />
           </Box>
 
         </VStack>

@@ -37,6 +37,9 @@ providers: [
         },
     }),
 ],
+pages:{
+  signIn:'/signin'
+},
 
   database: process.env.DATABASE_URL,
   secret: process.env.SECRET,

@@ -2,16 +2,18 @@ import React from 'react';
 import FormInput from './Forminput';
 import { VStack, Stack, FormControl, FormErrorMessage, Button, Flex } from '@chakra-ui/react'
 import { useForm } from "react-hook-form";
-import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/react';
 
 
 
 
 
-const SignupForm = ({ addressParams }) => {
+const SignupForm = ({ addressParams, providers }) => {
     const [error, SetError] = React.useState()
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit} = useForm({
+        defaultValues: {credentialsID:providers.credentials.id}
+    });
 
     const router = useRouter()
 
@@ -28,7 +30,7 @@ const SignupForm = ({ addressParams }) => {
         console.log(result)
 
         if (!result.error) {
-            router.replace('/');
+            router.replace('/home');
         }
         if (result.error) {
             SetError(result.error)

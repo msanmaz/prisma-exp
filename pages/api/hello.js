@@ -6,12 +6,11 @@ import prisma from '/lib/prisma'
 export default async function handle(req, res) {
   const { input} = req.body;
 
-  const result = await prisma.Posts.create({
-    data: {
-      post: input,
-
+  const result = await prisma.User.findMany({
+    where: {
+      name: 'Test',
     },
   });
-  res.status(200) ? res.status(200).json({status:'Submitted'}) : res.status(401).json({status:'error'})
+  res.send(result)
 
 }

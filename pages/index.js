@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import prisma from '../lib/prisma'
-import Navbar from 'components/Navbar'
+ import Navbar from 'components/Navbar'
 import { Center, Heading, HStack, Spacer, Stack, VStack,Box, Flex } from '@chakra-ui/react'
 import Cards from 'components/Cards'
 import InputField from 'components/InputField'
@@ -9,6 +8,7 @@ import { useState } from 'react'
 import SimpleSidebar from 'components/Sidebar'
 import Feed from 'components/Timeline/Feed'
 import { useSession } from 'next-auth/react'
+import { getSession } from 'next-auth/react'
 
 export default function Home({ cars }) {
   const { data: session, status } = useSession()
@@ -68,10 +68,9 @@ export default function Home({ cars }) {
   )
 }
 
-
-
-export async function getServerSideProps() {
-
+export async function getServerSideProps(context) {
+  const session = await getSession({ req: context.req });
+  
   let cars = await prisma.Posts.findMany({
     orderBy:{
       created_at:'desc'
@@ -79,7 +78,17 @@ export async function getServerSideProps() {
   })
   cars = JSON.parse(JSON.stringify(cars))
 
-  return {
-    props: { cars }
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/auth',
+        permanent: false,
+      },
+    };
   }
+
+  return {
+    props: { session,cars },
+  };
 }
+

@@ -30,7 +30,7 @@ import { IconType } from 'react-icons';
 import {signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router';
 import Link from 'next/link'
-
+import { getSession } from "next-auth/react"
 
 
 
@@ -87,7 +87,7 @@ const SidebarContent = ({  ...rest }) => {
       ))}
       <Box px={6} my={4}>
       <button className="hidden xl:inline ml-auto bg-[#1d9bf0] text-white rounded-full w-[10rem] h-[52px] text-lg font-bold shadow-md hover:bg-[#1a8cd8]">
-{session ? (
+{status === 'authenticated' ? (
       <button
       onClick={() => {
         signOut()
@@ -99,7 +99,7 @@ const SidebarContent = ({  ...rest }) => {
       logout
     </button>
 
-):    <Link href='/api/auth/signin'>
+):    <Link href='/signin'>
 login
 </Link> }
       </button>
@@ -119,12 +119,14 @@ const NavItem = ({ icon, children, ...rest }) => {
         p="4"
         mx="4"
         borderRadius="lg"
+        rounded='full'
         role="group"
         cursor="pointer"
         overflow={'hidden'}
+
         _hover={{
-          bg: 'cyan.400',
-          color: 'white',
+        bg:"rgb(245,245,245,.1)",
+
         }}
         {...rest}>
         {icon && (

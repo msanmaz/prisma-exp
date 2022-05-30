@@ -1,14 +1,15 @@
 import Head from 'next/head'
-import { Stack, Box, Flex, Button } from '@chakra-ui/react'
+import { Stack, Box, Flex, Heading } from '@chakra-ui/react'
 import SimpleSidebar from 'components/Sidebar'
 import Feed from 'components/Timeline/Feed'
 import { useSession,signIn } from 'next-auth/react'
 import { getSession } from 'next-auth/react'
 import prisma from 'lib/prisma'
+import Input from 'components/Timeline/Input'
 
 
-export default function Home({ cars }) {
- 
+export default function Home({ cars,session }) {
+  console.log(session)
 
   return (
     <div className=''>
@@ -33,8 +34,12 @@ export default function Home({ cars }) {
           
           <Flex  w={{base:'100%',md:'50%'}} h='full'>
           <Box w='full'>
-           <Feed posts={cars}/>
-         
+           <Feed posts={cars}>
+
+             {session ? <Input/> : <Heading>You're not logged in</Heading> }
+
+
+             </Feed>       
             </Box>
 
           </Flex>
@@ -77,15 +82,6 @@ export async function getServerSideProps(context) {
   })
   cars = JSON.parse(JSON.stringify(cars))
 
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/signin',
-        permanent: false,
-      },
-    };
-  }
 
   return {
     props: {session,cars }

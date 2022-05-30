@@ -4,7 +4,7 @@ import TweetField from './TweetField'
 import {FiTrendingUp} from 'react-icons/fi'
 import Input from './Input'
 
-function Feed({posts}) {
+function Feed({posts,children}) {
   return (
     <>
     <div className=" border-l w-full  border-r border-gray-700">
@@ -15,8 +15,8 @@ function Feed({posts}) {
         </div>
       </div>
 
-  
-        <Input />
+    {children}
+
 
         <div className="pb-72 flex justify-center items-center flex-wrap">
         {posts.map((post) => (

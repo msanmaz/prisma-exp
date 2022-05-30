@@ -15,6 +15,7 @@ import {
   Image,
   Button,
   VStack,
+  ButtonGroup,
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -27,7 +28,7 @@ import {
   FiList
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
-import {signOut, useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router';
 import Link from 'next/link'
 import { getSession } from "next-auth/react"
@@ -50,15 +51,15 @@ export default function SimpleSidebar() {
 
   return (
     <>
-      <SidebarContent/>
-      
+      <SidebarContent />
+
     </>
   );
 }
 
 
 
-const SidebarContent = ({  ...rest }) => {
+const SidebarContent = ({ ...rest }) => {
   const { data: session, status } = useSession()
   const router = useRouter()
   return (
@@ -70,13 +71,13 @@ const SidebarContent = ({  ...rest }) => {
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="6" justifyContent="space-between">
-       
-       
+
+
         <Flex h='10' w='10' _hover={{
           bg: 'cyan.400',
           color: 'white',
-        }}  rounded={'3xl'}>
-          <Image mt='8px' ml='7px'  src='https://rb.gy/ogau5a' w={6} h={6}/>
+        }} rounded={'3xl'}>
+          <Image mt='8px' ml='7px' src='https://rb.gy/ogau5a' w={6} h={6} />
         </Flex>
 
       </Flex>
@@ -85,24 +86,34 @@ const SidebarContent = ({  ...rest }) => {
           {link.name}
         </NavItem>
       ))}
+
+
+
       <Box px={6} my={4}>
-      <div className="flex xl:inline ml-auto bg-[#1d9bf0] text-white rounded-full w-[50%] text-lg font-bold shadow-md hover:bg-[#1a8cd8]">
-{status === 'authenticated' ? (
-      <button className='w-full'
-      onClick={() => {
-        signOut()
-        router.push('/')
-      }}
-    >
-    {session.user.name}{' '}
 
-      logout
-    </button>
 
-):    <Link href='/signin'>
-login
-</Link> }
-      </div>
+        <Box bgColor={'twitter.600'} rounded='full'>
+          {status === 'authenticated' ? (
+            <Button w='full' rounded={'full'} bgColor='twitter.600'
+              onClick={() => {
+                signOut()
+                router.push('/')
+              }}
+            >
+              {session.user.name}{' '}
+
+              logout
+            </Button>
+
+          ) : <Link href='/signin'>
+            <Button w='full' rounded={'full'} bgColor='twitter.600'>
+              Login
+
+            </Button>
+          </Link>}
+        </Box>
+
+        
       </Box>
 
 
@@ -125,7 +136,7 @@ const NavItem = ({ icon, children, ...rest }) => {
         overflow={'hidden'}
 
         _hover={{
-        bg:"rgb(245,245,245,.1)",
+          bg: "rgb(245,245,245,.1)",
 
         }}
         {...rest}>
@@ -139,8 +150,8 @@ const NavItem = ({ icon, children, ...rest }) => {
             as={icon}
           />
         )}
-        <Box display={{base:'none',md:'block'}}     >
-        {children}
+        <Box display={{ base: 'none', md: 'block' }}     >
+          {children}
         </Box>
 
       </Flex>

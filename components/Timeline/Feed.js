@@ -7,7 +7,7 @@ import Input from './Input'
 function Feed({posts,children}) {
   return (
     <>
-    <div className=" border-l w-full  border-r border-gray-700">
+    <div className="border-l w-full  border-r border-gray-700">
       <div className="text-[#d9d9d9] flex items-center sm:justify-between py-2 px-3 sticky top-0 z-50 bg-gray-900 border-b border-gray-700">
         <h2 className="text-lg sm:text-xl font-bold">Home</h2>
         <div className="hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0 ml-auto">

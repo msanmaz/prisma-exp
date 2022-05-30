@@ -22,7 +22,7 @@ export default function Home({ cars,session }) {
 
 
 
-        <Stack direction={'row'} justifyContent={{base:'flex-start',md:'center'}} alignContent={{base:'flex-start',md:'center'}} minH={'100vh'} maxW='2000px'>
+        <Box display={'flex'} direction={'row'} justifyContent={{base:'flex-start',md:'center'}} alignContent={{base:'flex-start',md:'center'}} minH={'100vh'} maxW='2000px'>
           
           <Flex display={{base:'none',md:'flex'}} h='100vh' position={'sticky'} top={0}>
               <Box  h='full' >
@@ -36,7 +36,7 @@ export default function Home({ cars,session }) {
           <Box w='full'>
            <Feed posts={cars}>
 
-             {session ? <Input/> : <Heading>You're not logged in</Heading> }
+             {session ? <Input/> : <Heading px={3}>You&apos;re not logged in</Heading> }
 
 
              </Feed>       
@@ -54,7 +54,7 @@ export default function Home({ cars,session }) {
         </Flex>
  
 
-        </Stack>
+        </Box>
 
 
 

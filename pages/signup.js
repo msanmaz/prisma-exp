@@ -1,6 +1,7 @@
 import React from 'react'
 import SignupForm from 'components/SignupForm'
 import { Center, Heading, VStack,Container,Box } from '@chakra-ui/react'
+import { getSession } from 'next-auth/react'
 
 
 const addressParams = [
@@ -32,5 +33,24 @@ const signup = () => {
 
   )
 }
+export async function getServerSideProps(context) {
+
+  const session = await getSession(context);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {session}
+  };
+}
+
+
 
 export default signup

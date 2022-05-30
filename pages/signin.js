@@ -38,7 +38,7 @@ const SignIn = ({providers}) => {
         <VStack w='full' display={'flex'} justifyContent={'center'} alignItems='center'>
           <Box w='50%' bgColor='gray.700' >
           <Center>
-        <Heading mt={'2rem'}>Sign Up</Heading>
+        <Heading mt={'2rem'}>Sign In</Heading>
         </Center>
 
       <SignInForm addressParams={addressParams} providers={providers}  />

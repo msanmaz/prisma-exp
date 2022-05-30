@@ -86,9 +86,9 @@ const SidebarContent = ({  ...rest }) => {
         </NavItem>
       ))}
       <Box px={6} my={4}>
-      <button className="hidden xl:inline ml-auto bg-[#1d9bf0] text-white rounded-full w-[10rem] h-[52px] text-lg font-bold shadow-md hover:bg-[#1a8cd8]">
+      <div className="flex xl:inline ml-auto bg-[#1d9bf0] text-white rounded-full w-[50%] text-lg font-bold shadow-md hover:bg-[#1a8cd8]">
 {status === 'authenticated' ? (
-      <button
+      <button className='w-full'
       onClick={() => {
         signOut()
         router.push('/')
@@ -102,7 +102,7 @@ const SidebarContent = ({  ...rest }) => {
 ):    <Link href='/signin'>
 login
 </Link> }
-      </button>
+      </div>
       </Box>
 
 

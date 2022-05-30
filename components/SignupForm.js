@@ -1,13 +1,16 @@
 import React from 'react';
 import FormInput from './Forminput';
-import { VStack, Stack,FormControl,FormErrorMessage,Button,Flex } from '@chakra-ui/react'
+import { VStack, Stack,Button,Flex, Heading } from '@chakra-ui/react'
 import { useForm } from "react-hook-form";
+import Link from 'next/link';
 
 
 
 const SignupForm = ({addressParams}) => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+  const [action,setAction] = React.useState()
+
+    const { register, handleSubmit, reset } = useForm();
 
       const onFormSubmit = async (data,e) => {
         e.preventDefault();
@@ -34,12 +37,17 @@ const SignupForm = ({addressParams}) => {
         });
         //Await for data for any desirable next steps
         const resp = await res.json();
+        if(resp.message !== null) {
+          setAction(resp.message)
+          reset()
+        }
         console.log(resp);
     };
     
 
   return (
     <VStack w="full">
+      {action && <VStack> <Heading color={'green.500'}>{action}! </Heading> <Link href='/signin'><Button color='white'>Sign In</Button></Link> </VStack>}
 
           <form style={{width:'100%', display:"flex",flexWrap:"wrap"}} onSubmit={handleSubmit(onFormSubmit)}>
 

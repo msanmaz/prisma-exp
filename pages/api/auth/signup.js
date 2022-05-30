@@ -7,7 +7,7 @@ export default async function SignUp(req, res) {
         const { username, password, email} = req.body;         
         //check if user existing
         
-        const checkExist = await prisma.User.findMany({
+        const checkExist = await prisma.User.findUnique({
           where: {
             email: email,
           },

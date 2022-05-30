@@ -59,17 +59,12 @@ pages:{
   callbacks: {
     jwt: async ({ token, user }) => {
       if(user) {
-        console.log('user',user)
-        console.log('token',token)
         token.sub = user.id
         token.email = user.email
       }
       return Promise.resolve(token);
     },
     session:  ({ session, token,user }) => {
-      console.log('session',session)
-      console.log('token in ses',token)
-      console.log('user in ses',user)
       session.email = token.email
       session.name = token.name
       session.accessToken = token.accessToken

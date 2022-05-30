@@ -11,33 +11,18 @@ datasource db {
 }
 
 
-model Car {
-  id         Int      @id @default(autoincrement())
-  brand      String
-  model      String
-  created_at DateTime @default(now())
-  bought     Boolean  @default(false)
-}
-
-
-model Posts {
-  id         Int      @id @default(autoincrement())
-  post      String
-  created_at DateTime @default(now())
-  }
-
-
-  model User {
+model User {
   id            String    @id @default(cuid())
   name          String?
-  password      String
   email         String?   @unique
   emailVerified DateTime?
+  password      String?
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
+    tweets        Tweet[]
 }
 
 model VerificationToken {
@@ -75,4 +60,14 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+
+model Tweet {
+  id        Int      @id @default(autoincrement())
+  parent    Int?
+  createdAt DateTime @default(now())
+  content   String?
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
 }

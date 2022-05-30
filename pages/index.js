@@ -5,9 +5,11 @@ import Feed from 'components/Timeline/Feed'
 import { useSession,signIn } from 'next-auth/react'
 import { getSession } from 'next-auth/react'
 import prisma from 'lib/prisma'
+
+
 export default function Home({ cars }) {
-  const { data: session } = useSession();
-    console.log(session)
+ 
+
   return (
     <div className=''>
 
@@ -31,7 +33,7 @@ export default function Home({ cars }) {
           
           <Flex  w={{base:'100%',md:'50%'}} h='full'>
           <Box w='full'>
-            {session ?      <Feed posts={cars}/> : <Button  onClick={() => signIn()}>Login</Button>}
+           <Feed posts={cars}/>
          
             </Box>
 
@@ -65,16 +67,28 @@ export default function Home({ cars }) {
 }
 
 export async function getServerSideProps(context) {
-  
-  let cars = await prisma.Posts.findMany({
+
+  const session = await getSession(context);
+
+  let cars = await prisma.Tweet.findMany({
     orderBy:{
-      created_at:'desc'
+      createdAt:'desc'
     }
   })
   cars = JSON.parse(JSON.stringify(cars))
 
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  }
+
   return {
-    props: { cars },
+    props: {session,cars }
   };
 }
 

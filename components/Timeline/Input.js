@@ -21,14 +21,18 @@ import {
   
       try {
         setLoading(true)
-        const body = { input };
-        await fetch('/api/hello', {
+        const content =  {input} ;
+        await fetch('/api/tweet', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body)
+          body: JSON.stringify(content)
         }).then(response => {
-          setInput('')
-          setLoading(false);
+          if(response.status === 200) {
+            setInput('')
+            setLoading(false);
+            console.log(response)
+          }
+
         })
         await Router.push('/')
       } catch (error) {

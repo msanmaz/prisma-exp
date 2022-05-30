@@ -94,7 +94,7 @@ const SidebarContent = ({  ...rest }) => {
         router.push('/')
       }}
     >
-    {session.user.email}{' '}
+    {session.user.name}{' '}
 
       logout
     </button>

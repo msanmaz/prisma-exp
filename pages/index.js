@@ -1,19 +1,13 @@
 import Head from 'next/head'
-import Image from 'next/image'
- import Navbar from 'components/Navbar'
-import { Center, Heading, HStack, Spacer, Stack, VStack,Box, Flex, Button } from '@chakra-ui/react'
-import Cards from 'components/Cards'
-import InputField from 'components/InputField'
-import { useState } from 'react'
+import { Stack, Box, Flex, Button } from '@chakra-ui/react'
 import SimpleSidebar from 'components/Sidebar'
 import Feed from 'components/Timeline/Feed'
-import { useSession } from 'next-auth/react'
+import { useSession,signIn } from 'next-auth/react'
 import { getSession } from 'next-auth/react'
-import Link from 'next/link'
-
+import prisma from 'lib/prisma'
 export default function Home({ cars }) {
-  const { data: session, status } = useSession()
-  
+  const { data: session } = useSession();
+    console.log(session)
   return (
     <div className=''>
 
@@ -26,15 +20,32 @@ export default function Home({ cars }) {
 
 
         <Stack direction={'row'} justifyContent={{base:'flex-start',md:'center'}} alignContent={{base:'flex-start',md:'center'}} minH={'100vh'} maxW='2000px'>
-          <Center>
-            <Heading>Youre Not Logged in</Heading>
-          </Center>
-       <Link href='/signin'>
-       <Button>
-        Log-In 
-      </Button>
-       </Link> 
+          
+          <Flex display={{base:'none',md:'flex'}} h='100vh' position={'sticky'} top={0}>
+              <Box  h='full' >
+              <SimpleSidebar/>
 
+              </Box>
+
+          </Flex>
+          
+          <Flex  w={{base:'100%',md:'50%'}} h='full'>
+          <Box w='full'>
+            {session ?      <Feed posts={cars}/> : <Button  onClick={() => signIn()}>Login</Button>}
+         
+            </Box>
+
+          </Flex>
+
+
+         
+
+        <Flex display={{base:'none',md:'flex'}} w="25%" bgColor={'gray.300'} h="full">
+        <Box>
+              text
+            </Box>
+        </Flex>
+ 
 
         </Stack>
 
@@ -52,3 +63,18 @@ export default function Home({ cars }) {
     </div>
   )
 }
+
+export async function getServerSideProps(context) {
+  
+  let cars = await prisma.Posts.findMany({
+    orderBy:{
+      created_at:'desc'
+    }
+  })
+  cars = JSON.parse(JSON.stringify(cars))
+
+  return {
+    props: { cars },
+  };
+}
+

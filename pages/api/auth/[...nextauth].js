@@ -15,7 +15,7 @@ providers: [
       },
         async authorize(credentials) {
             //Get all the users
-            const users = await prisma.User.findMany();
+   
             //Find user with the email  
             const result = await prisma.User.findUnique({
               where:{
@@ -27,27 +27,58 @@ providers: [
             if (!result) {
                 throw new Error('No user found with the email');
             }
+            if(result !== null){
+              return result
+            }
             //Check hased password with DB password
             const checkPassword = credentials.password === result.password
             //Incorrect password - send response
             if (!checkPassword) {
                 throw new Error('Password doesnt match');
             }
-            return { email: result.email };
+
+            return null
         },
     }),
 ],
+secret: process.env.SECRET,
 pages:{
   signIn:'/signin'
 },
 
   database: process.env.DATABASE_URL,
-  secret: process.env.SECRET,
 
   session: {
-    jwt: true,
-    maxAge: 30 * 24 * 60 * 60 // 30 days
+    strategy: "jwt",
   },
+   jwt: {
+    secret: process.env.SECRET,
+    encryption: true,
+  },
+
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      if(user) {
+        console.log('user',user)
+        console.log('token',token)
+        token.sub = user.id
+        token.email = user.email
+      }
+      return Promise.resolve(token);
+    },
+    session:  ({ session, token,user }) => {
+      console.log('session',session)
+      console.log('token in ses',token)
+      console.log('user in ses',user)
+      session.email = token.email
+      session.name = token.name
+      session.accessToken = token.accessToken
+      return Promise.resolve(session)
+    }
+},
+jwt: {
+  secret: process.env.SECRET,
+},
 
   debug: true,
   adapter: PrismaAdapter(prisma)

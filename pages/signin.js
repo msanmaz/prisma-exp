@@ -10,7 +10,7 @@ export async function getServerSideProps(context) {
     return {
       redirect: {
         permanent:false,
-        destination:'/home'
+        destination:'/'
       }
     }
   }
@@ -24,6 +24,7 @@ export async function getServerSideProps(context) {
 
 
 const SignIn = ({providers}) => {
+
   const addressParams = [
     { name: "email", type: 'text', alias: 'email',style:'100%', minLength:3 },
     { name: "password", type: 'password', alias: 'Password' ,style:'100%'},

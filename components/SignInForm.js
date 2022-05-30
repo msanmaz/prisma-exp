@@ -30,7 +30,7 @@ const SignupForm = ({ addressParams, providers }) => {
         console.log(result)
 
         if (!result.error) {
-            router.replace('/home');
+            router.replace('/');
         }
         if (result.error) {
             SetError(result.error)

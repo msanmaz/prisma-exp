@@ -17,7 +17,6 @@ function Feed({posts,children}) {
 
     {children}
 
-
         <div className="pb-72 flex justify-center items-center flex-wrap">
         {posts.map((post) => (
           <TweetField key={post.id} id={post.id} post={post} />

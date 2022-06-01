@@ -3,6 +3,7 @@ import FormInput from './Forminput';
 import { VStack, Stack,Button,Flex, Heading } from '@chakra-ui/react'
 import { useForm } from "react-hook-form";
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 
 
@@ -12,12 +13,15 @@ const SignupForm = ({addressParams}) => {
 
     const { register, handleSubmit, reset } = useForm();
 
+      const router = useRouter()
+
+
       const onFormSubmit = async (data,e) => {
         e.preventDefault();
         const email = data.email;
         const username = data.username;
         const password = data.password;
-        console.log(username)
+      
         //Validation
         if (!email || !email.includes('@') || !password) {
             alert('Invalid details');
@@ -41,7 +45,10 @@ const SignupForm = ({addressParams}) => {
           setAction(resp.message)
           reset()
         }
-        console.log(resp);
+
+         
+        
+
     };
     
 

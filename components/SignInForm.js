@@ -9,11 +9,12 @@ import { signIn } from 'next-auth/react';
 
 
 
-const SignupForm = ({ addressParams, providers }) => {
+const SignInForm = ({ addressParams, providers }) => {
     const [error, SetError] = React.useState()
     const { register, handleSubmit} = useForm({
         defaultValues: {credentialsID:providers.credentials.id}
     });
+    console.log('providers',providers)
 
     const router = useRouter()
 
@@ -37,7 +38,6 @@ const SignupForm = ({ addressParams, providers }) => {
         }
     }
 
-        console.log(error)
 
     return (
         <VStack w="full">
@@ -67,4 +67,4 @@ const SignupForm = ({ addressParams, providers }) => {
     )
 }
 
-export default SignupForm
+export default SignInForm

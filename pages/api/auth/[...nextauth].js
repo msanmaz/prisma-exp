@@ -5,75 +5,86 @@ import prisma from 'lib/prisma'
 
 export default NextAuth({
 
-//Specify Provider
-providers: [
+  //Specify Provider
+  providers: [
     CredentialsProvider({
-      name:"Credentials",
+      name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        username: { label: "email", type: "text", placeholder: "john@doe.com" },
         password: { label: "Password", type: "password" },
       },
-        async authorize(credentials) {
-            //Get all the users
-   
-            //Find user with the email  
-            const result = await prisma.User.findUnique({
-              where:{
-                email: credentials.email,
-              }
+      async authorize(credentials) {
+        console.log(credentials)
+        //Find user with the email  
+        const result = await prisma.User.findUnique({
+          where: {
+            email: credentials.email,
+          }
 
-            });
+        });
 
-            if (!result) {
-                throw new Error('No user found with the email');
-            }
-            if(result !== null){
-              return result
-            }
-            //Check hased password with DB password
-            const checkPassword = credentials.password === result.password
-            //Incorrect password - send response
-            if (!checkPassword) {
-                throw new Error('Password doesnt match');
-            }
+        if (!result) {
+          throw new Error('No user found with the email');
+        }
+        if (result !== null) {
+          return result
+        }
+        //Check hased password with DB password
+        const checkPassword = credentials.password === result.password
+        //Incorrect password - send response
+        if (!checkPassword) {
+          throw new Error('Password doesnt match');
+        }
 
-            return null
-        },
+        return null
+      },
     }),
-],
-secret: process.env.SECRET,
-pages:{
-  signIn:'/signin'
-},
+  ],
+  secret: process.env.SECRET,
+  pages: {
+    signIn: '/signin'
+  },
 
   database: process.env.DATABASE_URL,
 
   session: {
     strategy: "jwt",
   },
-   jwt: {
+  jwt: {
     secret: process.env.SECRET,
     encryption: true,
   },
 
   callbacks: {
     jwt: async ({ token, user }) => {
-      if(user) {
+      if(token.name === null){
+     
+          const result = await prisma.User.findUnique({
+            where: {
+              email: token.email,
+            }
+    
+          });
+          result.name && (token.name = result.name)
+        }
+      
+      if (user) {
         token.sub = user.id
+        token.name = user.name
         token.email = user.email
       }
       return Promise.resolve(token);
     },
-    session:  ({ session, token,user }) => {
+    session: async ({ session, token, user }) => {
+      if (!session) return null
+      console.log('user',user)
       session.email = token.email
       session.name = token.name
-      session.accessToken = token.accessToken
+      session.jti = token.jti
+      session.user.name = token.name
       return Promise.resolve(session)
     }
-},
-jwt: {
-  secret: process.env.SECRET,
-},
+  },
 
   debug: true,
   adapter: PrismaAdapter(prisma)

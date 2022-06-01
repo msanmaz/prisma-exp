@@ -1,17 +1,46 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { Heading } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 
 export default function Setup() {
-  const { data: session } = useSession()
+  const router = useRouter()
+  const { data: session, status } = useSession()
+
+  console.log(session)
+  
+  const loading = status === 'loading'
   const [name, setName] = useState('')
+
   if (!session || !session.user) return null
+
+	if (loading) return null
+
+  if (!loading && session.user.name) {
+    router.push('/')
+  }
+
+
 
   return (
       <>
     <Heading>Set your username</Heading>
 <form
       className='mt-10 ml-20'
+      onSubmit={async (e) => {
+        e.preventDefault()
+        await fetch('/api/setup', {
+          body: JSON.stringify({
+            name
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+        })
+				session.user.name = name
+       await router.push('/')
+      }}
     >
       <div className='flex-1 mb-5'>
         <div className='flex-1 mb-5'>Username</div>
@@ -20,7 +49,7 @@ export default function Setup() {
           name='name'
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className='border p-1'
+          className='border p-1 text-black'
         />
       </div>
 

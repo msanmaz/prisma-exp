@@ -6,10 +6,23 @@ import { useSession,getSession } from 'next-auth/react'
 import Input from 'components/Timeline/Input'
 import prisma from 'lib/prisma'
 import { getTweets } from 'lib/data.js'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 
 export default function Home({ tweets,session }) {
   const { status } = useSession()
+
+    const router = useRouter()
+
+    useEffect(() => {
+      if (session && !session.user.name) {
+        router.push('/setup')
+      }
+    }, [session])
+
+    
+
 
   if (status === 'loading') {
     return <p>...</p>

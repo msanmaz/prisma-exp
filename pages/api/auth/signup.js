@@ -4,7 +4,7 @@ export default async function SignUp(req, res) {
     
     if(req.method === 'POST') {
 
-        const { username, password, email} = req.body;         
+        const { password, email} = req.body;         
         //check if user existing
         
         const checkExist = await prisma.User.findUnique({
@@ -22,13 +22,14 @@ export default async function SignUp(req, res) {
           data: {
             email:email,
             password:password,
-
-      
           },
         });
         res.status(201).json({ message: 'User created', ...result });
+        return
     }
 
     res.status(405).json({ message: 'Method Not Allowed' })
+
+    res.end()
 
   }

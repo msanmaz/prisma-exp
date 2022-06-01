@@ -16,7 +16,7 @@ export async function getServerSideProps(context) {
   }
   return {
     props: {
-      providers:await getProviders(context)
+      providers:await getProviders(context),
     }
   }
 }
@@ -41,7 +41,7 @@ const SignIn = ({providers}) => {
         <Heading mt={'2rem'}>Sign In</Heading>
         </Center>
 
-      <SignInForm addressParams={addressParams} providers={providers}  />
+         <SignInForm addressParams={addressParams} providers={providers}  />
           </Box>
 
         </VStack>

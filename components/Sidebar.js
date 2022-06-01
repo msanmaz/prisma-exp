@@ -61,6 +61,7 @@ export default function SimpleSidebar() {
 
 const SidebarContent = ({ ...rest }) => {
   const { data: session, status } = useSession()
+  console.log(session)
   const router = useRouter()
   return (
     <Box
@@ -101,11 +102,10 @@ const SidebarContent = ({ ...rest }) => {
               }}
             >
               {session.user.name}{' '}
-
               logout
             </Button>
 
-          ) : <Link href='/signin'>
+          ) : <Link href='/api/auth/signin'>
             <Button w='full' rounded={'full'} bgColor='twitter.600'>
               Login
 

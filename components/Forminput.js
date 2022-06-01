@@ -10,7 +10,7 @@ import {
 function FormInput({ param, register }) {
     return (
         <>
-            <FormControl py={2} isRequired>
+            <FormControl py={2} >
                 <FormLabel htmlFor='first-name'>{param.alias}</FormLabel>
                 <Input id={param.name} value={param.value} type={param.type}   bg={useColorModeValue('gray.100', 'gray.700')}
                     _placeholder={{

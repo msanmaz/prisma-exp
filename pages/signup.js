@@ -5,7 +5,6 @@ import { getSession } from 'next-auth/react'
 
 
 const addressParams = [
-    { name: "username", type: 'text', alias: 'username',style:'100%', minLength:3 },
     { name: "email", type: 'email', alias: 'Email',style:'100%', pattern: /^\S+@\S+$/i, length:80},
     { name: "password", type: 'password', alias: 'Password' ,style:'100%'},
     { name: "confirmpass", type: 'tel', alias: 'Confirm Pass' ,style:'100%'},

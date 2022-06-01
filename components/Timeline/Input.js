@@ -5,6 +5,7 @@ import {
     PhotographIcon,
     XIcon,
   } from "@heroicons/react/outline";
+  import React from "react";
   import { useRef, useState } from "react";
   import { useRouter } from "next/router";
   import { Button, Spinner } from "@chakra-ui/react";
@@ -15,6 +16,8 @@ import {
     const [status, setStatus] = useState()
     const Router = useRouter()
 
+
+    
 
     const sendPost = async (e) => {
       e.preventDefault();
@@ -30,11 +33,10 @@ import {
           if(response.status === 200) {
             setInput('')
             setLoading(false);
-            console.log(response)
           }
 
         })
-        await Router.push('/')
+         Router.push('/')
       } catch (error) {
         console.error(error);
       }
@@ -106,4 +108,4 @@ import {
     );
   }
   
-  export default Input;
+  export default React.memo(Input);

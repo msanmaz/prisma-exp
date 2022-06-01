@@ -2,14 +2,18 @@ import Head from 'next/head'
 import { Stack, Box, Flex, Heading } from '@chakra-ui/react'
 import SimpleSidebar from 'components/Sidebar'
 import Feed from 'components/Timeline/Feed'
-import { useSession,signIn } from 'next-auth/react'
-import { getSession } from 'next-auth/react'
-import prisma from 'lib/prisma'
+import { useSession,getSession } from 'next-auth/react'
 import Input from 'components/Timeline/Input'
+import prisma from 'lib/prisma'
+import { getTweets } from 'lib/data.js'
 
 
-export default function Home({ cars,session }) {
-  console.log(session)
+export default function Home({ tweets,session }) {
+  const { status } = useSession()
+
+  if (status === 'loading') {
+    return <p>...</p>
+  }
 
   return (
     <div className=''>
@@ -34,7 +38,7 @@ export default function Home({ cars,session }) {
           
           <Flex  w={{base:'100%',md:'50%'}} h='full'>
           <Box w='full'>
-           <Feed posts={cars}>
+           <Feed posts={tweets}>
 
              {session ? <Input/> : <Heading px={3}>You&apos;re not logged in</Heading> }
 
@@ -75,16 +79,12 @@ export async function getServerSideProps(context) {
 
   const session = await getSession(context);
 
-  let cars = await prisma.Tweet.findMany({
-    orderBy:{
-      createdAt:'desc'
-    }
-  })
-  cars = JSON.parse(JSON.stringify(cars))
+	let tweets = await getTweets(prisma)
+  tweets = JSON.parse(JSON.stringify(tweets))
 
 
   return {
-    props: {session,cars }
+    props: {session,tweets }
   };
 }
 

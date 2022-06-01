@@ -1,6 +1,6 @@
 import React from 'react';
 import FormInput from './Forminput';
-import { VStack, Stack, FormControl, FormErrorMessage, Button, Flex } from '@chakra-ui/react'
+import { VStack, Stack, Heading, Button, Flex } from '@chakra-ui/react'
 import { useForm } from "react-hook-form";
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
@@ -37,9 +37,11 @@ const SignupForm = ({ addressParams, providers }) => {
         }
     }
 
+        console.log(error)
 
     return (
         <VStack w="full">
+            {error && <Heading color={'red.400'}>{error}</Heading>}
 
             <form style={{ width: '100%', display: "flex", flexWrap: "wrap" }} onSubmit={handleSubmit(onFormSubmit)}>
 

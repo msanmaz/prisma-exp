@@ -13,7 +13,7 @@ export default async function handler(req, res) {
       email: session.user.email,
     },
   })
-  console.log('bodyreq',req.body)
+
   if (req.method === 'POST') {
     await prisma.tweet.create({
       data: {

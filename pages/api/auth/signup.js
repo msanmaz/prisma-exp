@@ -20,9 +20,9 @@ export default async function SignUp(req, res) {
   
         const result = await prisma.User.create({
           data: {
-            name:username,
+            email:email,
             password:password,
-            email:email
+
       
           },
         });

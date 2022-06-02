@@ -1,21 +1,10 @@
-import React from 'react';
 import {
-  IconButton,
   Box,
-  CloseButton,
   Flex,
   Icon,
   useColorModeValue,
-  Drawer,
-  DrawerContent,
-  Text,
-  useDisclosure,
-  BoxProps,
-  FlexProps,
   Image,
   Button,
-  VStack,
-  ButtonGroup,
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -27,11 +16,9 @@ import {
   FiBell,
   FiList
 } from 'react-icons/fi';
-import { IconType } from 'react-icons';
 import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router';
 import Link from 'next/link'
-import { getSession } from "next-auth/react"
 
 
 
@@ -68,7 +55,7 @@ const SidebarContent = ({ ...rest }) => {
       bg={useColorModeValue('white', 'gray.900')}
       borderRight="1px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-      w='full'
+      w={{md:'5rem',xl:'200px'}}
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="6" justifyContent="space-between">
@@ -93,7 +80,7 @@ const SidebarContent = ({ ...rest }) => {
       <Box px={6} my={4}>
 
 
-        <Box bgColor={'twitter.600'} rounded='full'>
+        <Box display={{md:'none',xl:'flex'}} bgColor={'twitter.600'} rounded='full'>
           {status === 'authenticated' ? (
             <Button w='full' rounded={'full'} bgColor='twitter.600'
               onClick={() => {
@@ -128,7 +115,7 @@ const NavItem = ({ icon, children, ...rest }) => {
       <Flex
         align="center"
         p="4"
-        mx="4"
+        mx={{md:3,xl:4}}
         borderRadius="lg"
         rounded='full'
         role="group"

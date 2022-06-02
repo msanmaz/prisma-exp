@@ -77,7 +77,6 @@ export default NextAuth({
     },
     session: async ({ session, token, user }) => {
       if (!session) return null
-      console.log('user',user)
       session.email = token.email
       session.name = token.name
       session.jti = token.jti

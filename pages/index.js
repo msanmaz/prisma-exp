@@ -42,7 +42,7 @@ export default function Home({ tweets,session }) {
 
         <Box display={'flex'} direction={'row'} justifyContent={{base:'flex-start',md:'center'}} alignContent={{base:'flex-start',md:'center'}} minH={'100vh'} maxW='2000px'>
           
-          <Flex display={{base:'none',md:'flex'}} h='100vh' position={'sticky'} top={0}>
+          <Flex display={{base:'none',md:'flex',xl:'flex'}}  w={{md:'5rem',xl:'200px'}} h='100vh' position={'sticky'} top={0}>
               <Box  h='full' >
               <SimpleSidebar/>
 
@@ -83,7 +83,7 @@ export default function Home({ tweets,session }) {
 
 
 
-        <Flex position={'sticky'} bottom='0' display={{base:'inline',md:'none'}} w="full" bgColor={'gray.300'} h="auto">
+        <Flex position={'fixed'} bottom='0' display={{base:'inline',md:'none'}} w="full" bgColor={'gray.300'} h="auto">
         <BottomNav/>
         </Flex>
 

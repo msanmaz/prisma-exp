@@ -7,8 +7,6 @@ export default function Setup() {
   const router = useRouter()
   const { data: session, status } = useSession()
 
-  console.log(session)
-  
   const loading = status === 'loading'
   const [name, setName] = useState('')
 
@@ -19,6 +17,8 @@ export default function Setup() {
   if (!loading && session.user.name) {
     router.push('/')
   }
+
+  console.log('session in setup',session)
 
 
 

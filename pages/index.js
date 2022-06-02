@@ -8,6 +8,7 @@ import prisma from 'lib/prisma'
 import { getTweets } from 'lib/data.js'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import BottomNav from 'components/BottomNav'
 
 
 export default function Home({ tweets,session }) {
@@ -69,6 +70,10 @@ export default function Home({ tweets,session }) {
               text
             </Box>
         </Flex>
+
+
+    
+ 
  
 
         </Box>
@@ -78,7 +83,9 @@ export default function Home({ tweets,session }) {
 
 
 
-
+        <Flex position={'sticky'} bottom='0' display={{base:'inline',md:'none'}} w="full" bgColor={'gray.300'} h="auto">
+        <BottomNav/>
+        </Flex>
 
 
 

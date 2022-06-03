@@ -48,7 +48,6 @@ export default function SimpleSidebar() {
 
 const SidebarContent = ({ ...rest }) => {
   const { data: session, status } = useSession()
-  console.log(session)
   const router = useRouter()
   return (
     <Box

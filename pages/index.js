@@ -54,7 +54,7 @@ export default function Home({ tweets,session }) {
           <Box w='full'>
            <Feed posts={tweets}>
 
-             {session ? <Input/> : <Heading px={3}>You&apos;re not logged in</Heading> }
+             {session ? <Input session={session}/> : <Heading px={3}>You&apos;re not logged in</Heading> }
 
 
              </Feed>       

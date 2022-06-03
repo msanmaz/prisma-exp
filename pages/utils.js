@@ -5,7 +5,7 @@ export default function Utils() {
   
         <div className='flex-1 mb-5'>
           <button
-            className='border px-8 py-2 mt-5 mr-8 font-bold rounded-full color-accent-contrast bg-color-accent hover:bg-color-accent-hover-darker'
+            className='border px-8 py-2 mt-5 mr-8 font-bold rounded-full color-accent-contrast bg-color-accent hover:bg-gray-700'
             onClick={async () => {
               await fetch('/api/utils', {
                 body: JSON.stringify({
@@ -23,7 +23,7 @@ export default function Utils() {
         </div>
         <div className='flex-1 mb-5'>
           <button
-            className='border px-8 py-2 mt-5 mr-8 font-bold rounded-full color-accent-contrast bg-color-accent hover:bg-color-accent-hover-darker'
+            className='border px-8 py-2 mt-5 mr-8 font-bold rounded-full color-accent-contrast bg-color-accent hover:bg-gray-700'
             onClick={async () => {
               await fetch('/api/utils', {
                 body: JSON.stringify({
@@ -41,7 +41,7 @@ export default function Utils() {
         </div>
         <div className='flex-1 mb-5'>
           <button
-            className='border px-8 py-2 mt-5 mr-8 font-bold rounded-full color-accent-contrast bg-color-accent hover:bg-color-accent-hover-darker'
+            className='border px-8 py-2 mt-5 mr-8 font-bold rounded-full color-accent-contrast bg-color-accent hover:bg-gray-700'
             onClick={async () => {
               await fetch('/api/utils', {
                 body: JSON.stringify({

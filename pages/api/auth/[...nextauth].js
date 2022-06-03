@@ -57,21 +57,25 @@ export default NextAuth({
 
   callbacks: {
     jwt: async ({ token, user }) => {
-      if(token.name === null){
+      console.log('token in jwt',token)
+      if(token.name === null || token.picture === null){
      
           const result = await prisma.User.findUnique({
             where: {
               email: token.email,
-            }
-    
+            }    
           });
           result.name && (token.name = result.name)
+          result.author.image && (token.picture = result.author.image)
+          console.log(result)
         }
       
       if (user) {
         token.sub = user.id
         token.name = user.name
         token.email = user.email
+        token.picture = user.image
+        
       }
       return Promise.resolve(token);
     },
@@ -80,7 +84,7 @@ export default NextAuth({
       session.email = token.email
       session.name = token.name
       session.jti = token.jti
-      session.user.name = token.name
+      session.user.image = token.picture
       return Promise.resolve(session)
     }
   },

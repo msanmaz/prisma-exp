@@ -10,13 +10,13 @@ import {
   import { useRouter } from "next/router";
   import { Button, Spinner } from "@chakra-ui/react";
 
-  function Input() {
+  function Input({session}) {
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState()
     const Router = useRouter()
 
-
+    console.log(session)
     
 
     const sendPost = async (e) => {
@@ -50,7 +50,7 @@ import {
         }`}
       >
         <img
-          src={'/blank-profile-picture.webp'}
+          src={session.user.image}
           alt=""
           className="h-11 w-11 rounded-full cursor-pointer"
         />

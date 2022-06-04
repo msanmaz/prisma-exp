@@ -5,6 +5,7 @@ import {
   useColorModeValue,
   Image,
   Button,
+  Text,
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -14,11 +15,12 @@ import {
   FiHash,
   FiMessageSquare,
   FiBell,
-  FiList
+  FiList,
 } from 'react-icons/fi';
 import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router';
 import Link from 'next/link'
+import { LibraryIcon } from '@heroicons/react/outline';
 
 
 
@@ -80,23 +82,52 @@ const SidebarContent = ({ ...rest }) => {
 
 
         <Box display={{md:'none',xl:'flex'}} bgColor={'twitter.600'} rounded='full'>
-          {status === 'authenticated' ? (
-            <Button w='full' rounded={'full'} bgColor='twitter.600'
-              onClick={() => {
-                signOut()
-                router.push('/')
-              }}
-            >
-              {session.user.name}{' '}
-              logout
-            </Button>
-
-          ) : <Link href='/api/auth/signin'>
+       
             <Button w='full' rounded={'full'} bgColor='twitter.600'>
-              Login
-
+              Tweet
             </Button>
-          </Link>}
+
+        </Box>
+
+        <Box position={'absolute'} bottom={'5%'}  rounded='full'>
+          {status === 'authenticated'
+           ?             <Flex onClick={() => signOut()}
+           align="center"
+         
+           p="2"
+           borderRadius="lg"
+           rounded='full'
+           role="group"
+           cursor="pointer"
+           overflow={'hidden'}
+   
+           _hover={{
+             bg: "rgb(245,245,245,.1)",
+   
+           }}
+          >
+             <Image src={session.user.image} w={10} h={10} rounded='full'/>
+
+           <Box display={{ base: 'none', md: 'inline' }} px={2}  >
+             <Box>
+               <p className='font-bold text-sm'>MertOsa</p>
+             </Box>
+            
+   
+           </Box>
+   
+         </Flex>
+         
+           : 
+           <Link href='/api/auth/signin'>
+                  <Button>
+             Login
+           </Button>
+           </Link>
+    
+
+} 
+
         </Box>
 
         

@@ -1,5 +1,7 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import prisma from 'lib/prisma'
 
@@ -39,10 +41,21 @@ export default NextAuth({
         return null
       },
     }),
+    GoogleProvider({
+      clientId: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code"
+        }
+      }
+    })
   ],
   secret: process.env.SECRET,
   pages: {
-    signIn: '/signin'
+    signIn: '/signin',
   },
 
   database: process.env.DATABASE_URL,

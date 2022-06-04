@@ -6,10 +6,11 @@ import {
     FiMessageSquare,
     FiBell,
 } from 'react-icons/fi';
+import Link from 'next/link';
 
 
 const LinkItems = [
-    { name: 'Home', icon: FiHome },
+    { name: 'Home', icon: FiHome,  },
     { name: 'Explore', icon: FiHash },
     { name: 'Notifications', icon: FiBell },
     { name: 'Messages', icon: FiMessageSquare },
@@ -21,7 +22,7 @@ const BottomNav = () => {
         <Box  display={'flex'} w='full' h='3rem' bgColor='gray.500'>
             {LinkItems.map((link) => (
                 <HStack display={'flex'} alignItems={'center'} justifyContent='center' key={link.name} w='25%'>
-                
+                    
                     <Icon
                         mr="4"
                         fontSize="25"
@@ -30,6 +31,8 @@ const BottomNav = () => {
                         }}
                         as={link.icon}
                     />
+                 
+ 
 
 
                 </HStack>

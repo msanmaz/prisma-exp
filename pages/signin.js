@@ -2,6 +2,7 @@ import React from 'react'
 import SignInForm from 'components/SignInForm'
 import { Center, Heading, VStack,Container,Box } from '@chakra-ui/react'
 import { signIn, getSession, getProviders } from "next-auth/react";
+import { m } from 'framer-motion';
 
 
 export async function getServerSideProps(context) {
@@ -36,7 +37,7 @@ const SignIn = ({providers}) => {
     return (
 
         <VStack w='full' display={'flex'} justifyContent={'center'} alignItems='center'>
-          <Box w='50%' bgColor='gray.700' >
+          <Box w={{base:'100%',md:'50%'}} bgColor='gray.700' >
           <Center>
         <Heading mt={'2rem'}>Sign In</Heading>
         </Center>

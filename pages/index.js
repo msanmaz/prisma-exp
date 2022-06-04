@@ -2,19 +2,22 @@ import Head from 'next/head'
 import { Stack, Box, Flex, Heading } from '@chakra-ui/react'
 import SimpleSidebar from 'components/Sidebar'
 import Feed from 'components/Timeline/Feed'
-import { useSession,getSession } from 'next-auth/react'
+import { useSession,getSession, getProviders } from 'next-auth/react'
 import Input from 'components/Timeline/Input'
 import prisma from 'lib/prisma'
 import { getTweets } from 'lib/data.js'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import BottomNav from 'components/BottomNav'
+import Login from 'components/Login'
 
 
-export default function Home({ tweets,session }) {
+export default function Home({ tweets,session,providers }) {
   const { status } = useSession()
 
     const router = useRouter()
+
+    if (!session || !session.user) return <Login providers={providers}/>
 
     useEffect(() => {
       if (session && !session.user.name) {
@@ -95,6 +98,9 @@ export default function Home({ tweets,session }) {
   )
 }
 
+
+
+
 export async function getServerSideProps(context) {
 
   const session = await getSession(context);
@@ -104,7 +110,7 @@ export async function getServerSideProps(context) {
 
 
   return {
-    props: {session,tweets }
+    props: {session,tweets,providers: await getProviders(context) }
   };
 }
 

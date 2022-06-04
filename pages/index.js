@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { Stack, Box, Flex, Heading } from '@chakra-ui/react'
 import SimpleSidebar from 'components/Sidebar'
 import Feed from 'components/Timeline/Feed'
-import { useSession,getSession, getProviders } from 'next-auth/react'
+import { useSession, getSession, getProviders } from 'next-auth/react'
 import Input from 'components/Timeline/Input'
 import prisma from 'lib/prisma'
 import { getTweets } from 'lib/data.js'
@@ -12,20 +12,20 @@ import BottomNav from 'components/BottomNav'
 import Login from 'components/Login'
 
 
-export default function Home({ tweets,session,providers }) {
+export default function Home({ tweets, session, providers }) {
   const { status } = useSession()
 
-    const router = useRouter()
+  const router = useRouter()
 
-    if (!session || !session.user) return <Login providers={providers}/>
+  if (!session || !session.user) return <Login providers={providers} />
 
-    useEffect(() => {
-      if (session && !session.user.name) {
-        router.push('/setup')
-      }
-    }, [session])
 
-    
+  if (session && !session.user.name) {
+    router.push('/setup')
+  }
+
+
+
 
 
   if (status === 'loading') {
@@ -43,52 +43,52 @@ export default function Home({ tweets,session,providers }) {
 
 
 
-        <Box display={'flex'} direction={'row'} justifyContent={{base:'flex-start',md:'center'}} alignContent={{base:'flex-start',md:'center'}} minH={'100vh'} maxW='2000px'>
-          
-          <Flex display={{base:'none',md:'flex',xl:'flex'}}  w={{md:'5rem',xl:'200px'}} h='100vh' position={'sticky'} top={0}>
-              <Box  h='full' >
-              <SimpleSidebar/>
+      <Box display={'flex'} direction={'row'} justifyContent={{ base: 'flex-start', md: 'center' }} alignContent={{ base: 'flex-start', md: 'center' }} minH={'100vh'} maxW='2000px'>
 
-              </Box>
+        <Flex display={{ base: 'none', md: 'flex', xl: 'flex' }} w={{ md: '5rem', xl: '200px' }} h='100vh' position={'sticky'} top={0}>
+          <Box h='full' >
+            <SimpleSidebar />
 
-          </Flex>
-          
-          <Flex  w={{base:'100%',md:'50%'}} h='full'>
+          </Box>
+
+        </Flex>
+
+        <Flex w={{ base: '100%', md: '50%' }} h='full'>
           <Box w='full'>
-           <Feed posts={tweets}>
+            <Feed posts={tweets}>
 
-             {session ? <Input session={session}/> : <Heading px={3}>You&apos;re not logged in</Heading> }
-
-
-             </Feed>       
-            </Box>
-
-          </Flex>
+              {session ? <Input session={session} /> : <Heading px={3}>You&apos;re not logged in</Heading>}
 
 
-         
+            </Feed>
+          </Box>
 
-        <Flex display={{base:'none',md:'flex'}} w="25%" bgColor={'gray.300'} h="full">
-        <Box>
-              text
-            </Box>
         </Flex>
 
 
-    
- 
- 
-
-        </Box>
 
 
-
-
-
-
-        <Flex position={'fixed'} bottom='0' display={{base:'inline',md:'none'}} w="full" bgColor={'gray.300'} h="auto">
-        <BottomNav/>
+        <Flex display={{ base: 'none', md: 'flex' }} w="25%" bgColor={'gray.300'} h="full">
+          <Box>
+            text
+          </Box>
         </Flex>
+
+
+
+
+
+
+      </Box>
+
+
+
+
+
+
+      <Flex position={'fixed'} bottom='0' display={{ base: 'inline', md: 'none' }} w="full" bgColor={'gray.300'} h="auto">
+        <BottomNav />
+      </Flex>
 
 
 
@@ -105,12 +105,12 @@ export async function getServerSideProps(context) {
 
   const session = await getSession(context);
 
-	let tweets = await getTweets(prisma)
+  let tweets = await getTweets(prisma)
   tweets = JSON.parse(JSON.stringify(tweets))
 
 
   return {
-    props: {session,tweets,providers: await getProviders(context) }
+    props: { session, tweets, providers: await getProviders(context) }
   };
 }
 

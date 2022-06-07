@@ -18,7 +18,7 @@ export default function Setup() {
     router.push('/')
   }
 
-  console.log('session in setup',session)
+
 
 
 

@@ -16,7 +16,7 @@ export default NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        console.log(credentials)
+
         //Find user with the email  
         const result = await prisma.User.findUnique({
           where: {
@@ -55,6 +55,7 @@ export default NextAuth({
 
   session: {
     strategy: "jwt",
+
   },
   jwt: {
     secret: process.env.SECRET,
@@ -63,7 +64,7 @@ export default NextAuth({
 
   callbacks: {
     jwt: async ({ token, user }) => {
-      console.log('token in jwt',token)
+
       if(token.name === null || token.picture === null){
      
           const result = await prisma.User.findUnique({
@@ -73,7 +74,7 @@ export default NextAuth({
           });
           result.name && (token.name = result.name)
           result.author.image && (token.picture = result.author.image)
-          console.log(result)
+
         }
       
       if (user) {

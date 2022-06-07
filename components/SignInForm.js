@@ -14,7 +14,7 @@ const SignInForm = ({ addressParams, providers }) => {
     const { register, handleSubmit} = useForm({
         defaultValues: {credentialsID:providers.credentials.id}
     });
-    console.log('providers',providers)
+
 
     const router = useRouter()
 

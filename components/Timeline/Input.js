@@ -16,7 +16,6 @@ import {
     const [status, setStatus] = useState()
     const Router = useRouter()
 
-    console.log(session)
     
 
     const sendPost = async (e) => {

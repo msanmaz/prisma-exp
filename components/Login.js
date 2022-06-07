@@ -1,18 +1,21 @@
-import { VStack, Stack, Image, Box, HStack, Heading, Button, Center, Text } from "@chakra-ui/react";
+import { VStack, Stack, Image, Box, HStack, Heading, Button, Center, Text,useDisclosure } from "@chakra-ui/react";
 import { signIn } from "next-auth/react";
-import { FcGoogle } from 'react-icons/fc';
-import { BsApple } from 'react-icons/bs'
 import Link from "next/link";
-
+import { AppleButton } from "./Buttons/AppleButton";
+import { GoogleButton } from "./Buttons/GoogleButton";
+import { SignInButton } from "./Buttons/SignInButton";
+import CredentialsLogin from "./SignModals/CredentialsLogin";
+import {useRef} from 'react'
 
 function Login({ providers }) {
+
   return (
     <Stack bgColor='white' w='full' display={'flex'} direction={{ base: 'column-reverse', md: 'row' }} h={{ base: 'full', md: '100vh' }}>
       <VStack w={{ base: '100%', md: '54%' }} h='full'>
         <Box h='full'>
           <Image objectFit='cover' h='full' src='lohp_en_1302x955.png' />
-          <Box position={'absolute'} top={{md:'26%'}} bottom={{base:'3%'}} left={{base:'20%',md:'16.5%'}}>
-            <Image src='https://rb.gy/ogau5a' h={{base:'15rem',md:'21rem'}} w={{base:'15rem',md:'21rem'}} />
+          <Box position={'absolute'} top={{ md: '26%' }} bottom={{ base: '3%' }} left={{ base: '20%', md: '16.5%' }}>
+            <Image src='https://rb.gy/ogau5a' h={{ base: '15rem', md: '21rem' }} w={{ base: '15rem', md: '21rem' }} />
 
           </Box>
 
@@ -21,8 +24,11 @@ function Login({ providers }) {
 
 
       <VStack w={{ base: '100%', md: '46%' }} h='full'>
-        <RightSide />
+        <RightSide/>
       </VStack>
+
+
+
 
     </Stack>
   );
@@ -31,12 +37,20 @@ function Login({ providers }) {
 
 
 
-const RightSide = () => {
+function RightSide()  {
+  const {
+    isOpen: isOpenLoginModal,
+    onOpen: onOpenLoginModal,
+    onClose: onCloseLoginModal
+} = useDisclosure()
+
+
+
   return (
     <>
 
 
-
+  <CredentialsLogin isOpen={isOpenLoginModal} onClose={onCloseLoginModal}/>
 
       <Box px='2rem' w='full' my='2rem' position={'relative'} >
         <svg className="h-[3rem]" fill="rgb(29, 155, 240)" viewBox="0 0 24 24" aria-hidden='true'>
@@ -46,7 +60,7 @@ const RightSide = () => {
       </Box>
 
       <Box px='2rem' pt='1rem' w='full'>
-        <Heading color='black' fontSize={{base:'5xl',md:'7xl'}}>Happening now</Heading>
+        <Heading color='black' fontSize={{ base: '5xl', md: '7xl' }}>Happening now</Heading>
       </Box>
 
       <Box px='2rem' pt='3rem' w='full'>
@@ -54,49 +68,21 @@ const RightSide = () => {
       </Box>
 
 
-      <Box w='full' px='2rem' pt='2rem'>
-        <Button onClick={() => signIn('google')}
-          w={{base:'100%',md:'50%'}}
-          rounded='full'
-          border='1px'
-          _hover={{
-            background: 'gray.200'
-          }}
-          borderColor={'gray.300'}
-          maxW={'md'}
-          variant={'outline'}
-          leftIcon={<FcGoogle />}>
-          <Center>
-            <Text color='black'>Sign Up with Google</Text>
-          </Center>
-        </Button>
 
+
+      <Box w='full' px='2rem' pt='2rem'>
+    <GoogleButton/>
       </Box>
 
       <Box w='full' px='2rem' pt='0.5rem'>
-        <Button onClick={() => signIn('google')}
-       w={{base:'100%',md:'50%'}}
-          rounded='full'
-          border='1px'
-          _hover={{
-            background: 'gray.200'
-          }}
-          borderColor={'gray.300'}
-          maxW={'md'}
-          variant={'outline'}
-          leftIcon={<BsApple fill="black" />}>
-          <Center>
-            <Text color='black'>Sign Up with Apple</Text>
-          </Center>
-        </Button>
-
+          <AppleButton/>
       </Box>
 
 
 
-      <Box    w={{base:'100%',md:'60%'}} h='1.7rem' px='2rem' pt='0.2rem'>
-        <Box w='full'  display='flex' justifyContent={{base:'center',md:'flex-start' }} alignContent={{base:'center',md:'flex-start' }}>
-        <Text color='gray.700'>or</Text><br />
+      <Box w={{ base: '100%', md: '60%' }} h='1.7rem' px='2rem' pt='0.2rem'>
+        <Box w='full' display='flex' justifyContent={{ base: 'center', md: 'flex-start' }} alignContent={{ base: 'center', md: 'flex-start' }}>
+          <Text color='gray.700'>or</Text><br />
         </Box>
 
 
@@ -105,30 +91,40 @@ const RightSide = () => {
 
 
       <Box w='full' px='2rem'>
-        <Link href='/signin'>
-        <Button
-       w={{base:'100%',md:'50%'}}
-          rounded='full'
-          border='1px'
-          bgColor={'twitter.500'}
-          _hover={{
-            background: 'twitter.400'
-          }}
-          borderColor={'gray.300'}
-          maxW={'md'}
-          variant={'outline'}>
-          <Center>
-            <Text color='white'>Sign Up with Credentials</Text>
-          </Center>
-        </Button>
-        </Link>
-        
+
+      <SignInButton color='twitter.500' onOpen={onOpenLoginModal} textColor={'white'} name={'Sign Up with email or phone'}/>
+
+
+
         <Text px='0.2rem' py='0.3rem' fontSize={'8pt'} color='black'>
           By signing up, you agree to the Terms of Service and Privacy <br /> Policy, including Cookie Use.
         </Text>
 
       </Box>
 
+
+      <Box w='full' px='2rem' pt='0.5rem'>
+        <Heading color='black' py='1rem' fontSize={'large'}>Already have an account?</Heading>
+        <SignInButton color='white' textColor={'twitter.500'} name={'Sign In'}/>
+
+        <Button onClick={() => signIn('google')}
+          w={{ base: '100%', md: '30%' }}
+          rounded='full'
+          border='1px'
+          mx={{base:0,md:'1rem'}}
+          my={{base:'1rem',md:0}}
+          _hover={{
+            background: 'gray.200'
+          }}
+          borderColor={'gray.300'}
+          maxW={'md'}
+          variant={'outline'}>
+          <Center>
+            <Text color='twitter.500'>Sign In as test user</Text>
+          </Center>
+        </Button>
+
+      </Box>
 
 
 

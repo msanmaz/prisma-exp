@@ -4,21 +4,36 @@ import {
     FormLabel,
     FormErrorMessage,
     Input,
-    useColorModeValue
+    useColorModeValue,
+    InputRightElement,
+    InputGroup,
+    Button
 } from '@chakra-ui/react'
 
-function FormInput({ param, register }) {
+function FormInput({ param, register, show,handleClick }) {
     return (
         <>
             <FormControl py={2} >
-                <FormLabel htmlFor='first-name'>{param.alias}</FormLabel>
-                <Input id={param.name} value={param.value} type={param.type}   bg={useColorModeValue('gray.100', 'gray.700')}
-                    _placeholder={{
-                        color: 'gray.400',
-                    }} placeholder={param.alias} {...register(param.name,{
-                        maxLength:param.length,
-                        pattern:param.pattern
-                    })} />
+                <InputGroup>
+                    <Input id={param.name} variant='outline' h='4rem' type={show ? 'text' : param.type} focusBorderColor='blue.400' border={'2px'} borderColor='gray.300' value={param.value}  bg={useColorModeValue('white', 'white')}
+                        _placeholder={{
+                            color: 'gray.400',
+                        }}
+                        _hover={{
+                            borderColor:'gray.400'
+                        }} 
+                        placeholder={param.alias} {...register(param.name, {
+                            maxLength: param.length,
+                            pattern: param.pattern
+                        })} />
+              {param.inputEl ?  <InputRightElement my={3} width='4.5rem'>
+                        <Button h='2.5rem' size='sm'onClick={handleClick}>
+                            {show ? 'Hide' : 'Show'}
+                        </Button>
+                    </InputRightElement>   :'' }      
+
+                </InputGroup>
+
             </FormControl>
 
         </>

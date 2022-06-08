@@ -1,7 +1,7 @@
 import React from 'react'
 import {Button,Center,Text} from '@chakra-ui/react'
 
-export const SignInButton =  React.forwardRef(({name,color,textColor,onOpen,hoverbg}) => {
+export const SignInButton =  ({name,color,textColor,onOpen}) => {
 
   return (
     <Button onClick={onOpen}
@@ -20,4 +20,4 @@ export const SignInButton =  React.forwardRef(({name,color,textColor,onOpen,hove
     </Center>
   </Button>
   )
-})
+}

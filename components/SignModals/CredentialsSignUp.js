@@ -68,7 +68,7 @@ function CredentialsSignUp({ isOpen, onClose }) {
 
     return (
         <>
-            <Modal isOpen={isOpen} onClose={onClose} size={'xl'}>
+            <Modal isOpen={isOpen} onClose={onClose} size={'xl'} px={{base:'2rem',md:'auto'}}>
                 <ModalOverlay bg='none'
                     backdropFilter='auto'
                     backdropInvert='80%'

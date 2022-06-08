@@ -110,7 +110,7 @@ const SidebarContent = ({ ...rest }) => {
 
            <Box display={{ base: 'none', md: 'inline' }} px={2}  >
              <Box>
-               <p className='font-bold text-sm'>MertOsa</p>
+               <p className='font-bold text-sm'>{session.user.name}</p>
              </Box>
             
    

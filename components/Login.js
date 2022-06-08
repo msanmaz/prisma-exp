@@ -1,11 +1,13 @@
-import { VStack, Stack, Image, Box, HStack, Heading, Button, Center, Text,useDisclosure } from "@chakra-ui/react";
+import { VStack, Stack, Image, Box, HStack, Heading, Button, Center, Text, useDisclosure } from "@chakra-ui/react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { AppleButton } from "./Buttons/AppleButton";
 import { GoogleButton } from "./Buttons/GoogleButton";
 import { SignInButton } from "./Buttons/SignInButton";
-import {useRef} from 'react'
+import { useRef } from 'react'
 import CredentialsSignUp from "./SignModals/CredentialsSignUp";
+import CredentialsSignIn from "./SignModals/CredentialsSignIn";
+
 
 function Login({ providers }) {
 
@@ -24,7 +26,7 @@ function Login({ providers }) {
 
 
       <VStack w={{ base: '100%', md: '46%' }} h='full'>
-        <RightSide/>
+        <RightSide />
       </VStack>
 
 
@@ -37,12 +39,18 @@ function Login({ providers }) {
 
 
 
-function RightSide()  {
+function RightSide() {
   const {
     isOpen: isOpenLoginModal,
     onOpen: onOpenLoginModal,
     onClose: onCloseLoginModal
-} = useDisclosure()
+  } = useDisclosure()
+
+  const {
+    isOpen,
+    onOpen,
+    onClose
+  } = useDisclosure()
 
 
 
@@ -50,7 +58,8 @@ function RightSide()  {
     <>
 
 
-  <CredentialsSignUp isOpen={isOpenLoginModal} onClose={onCloseLoginModal}/>
+      <CredentialsSignUp isOpen={isOpenLoginModal} onClose={onCloseLoginModal} />
+      <CredentialsSignIn isOpen={isOpen} onClose={onClose} />
 
       <Box px='2rem' w='full' my='2rem' position={'relative'} >
         <svg className="h-[3rem]" fill="rgb(29, 155, 240)" viewBox="0 0 24 24" aria-hidden='true'>
@@ -71,11 +80,11 @@ function RightSide()  {
 
 
       <Box w='full' px='2rem' pt='2rem'>
-    <GoogleButton/>
+        <GoogleButton />
       </Box>
 
       <Box w='full' px='2rem' pt='0.5rem'>
-          <AppleButton/>
+        <AppleButton />
       </Box>
 
 
@@ -92,7 +101,7 @@ function RightSide()  {
 
       <Box w='full' px='2rem'>
 
-      <SignInButton color='twitter.500' onOpen={onOpenLoginModal} textColor={'white'} name={'Sign Up with email or phone'}/>
+        <SignInButton color='twitter.500' onOpen={onOpenLoginModal} textColor={'white'} name={'Sign Up with email or phone'} />
 
 
 
@@ -105,14 +114,19 @@ function RightSide()  {
 
       <Box w='full' px='2rem' pt='0.5rem'>
         <Heading color='black' py='1rem' fontSize={'large'}>Already have an account?</Heading>
-        <SignInButton color='white' textColor={'twitter.500'} name={'Sign In'}/>
 
-        <Button onClick={() => signIn('google')}
+
+        <SignInButton color='white' onOpen={onOpen} textColor={'twitter.500'} name={'Sign In'} />
+
+        <Button onClick={() => signIn('credentials', {
+          email: 'aya@aya.com',
+          password: '123123123'
+        })}
           w={{ base: '100%', md: '30%' }}
           rounded='full'
           border='1px'
-          mx={{base:0,md:'1rem'}}
-          my={{base:'1rem',md:0}}
+          mx={{ base: 0, md: '1rem' }}
+          my={{ base: '1rem', md: 0 }}
           _hover={{
             background: 'gray.200'
           }}

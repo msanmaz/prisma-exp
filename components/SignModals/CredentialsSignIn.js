@@ -16,8 +16,8 @@ const addressParams = [
 
 
 
-function CredentialsSignIn({providers}) {
-    console.log('providers',providers)
+function CredentialsSignIn({ isOpen, onClose }) {
+ 
     const {
         isOpen: isOpenSignInModal,
         onOpen: onOpenSignInModal,
@@ -54,14 +54,14 @@ function CredentialsSignIn({providers}) {
 
     
   return (
-    <Modal isOpen={isOpenSignInModal} onClose={onCloseSignInModal} size={'xl'}>
+    <Modal isOpen={isOpen} onClose={onClose} size={'xl'}  px={{base:'2rem',md:'auto'}}>
     <ModalOverlay bg='none'
         backdropFilter='auto'
         backdropInvert='80%'
         backdropBlur='2px' />
     <ModalContent px={6} bgColor={'white'}>
-        <ModalHeader color='black'><Heading fontSize={'xl'}>Sign Up Form</Heading></ModalHeader>
-        <ModalHeader color='black'><Heading fontSize={'2xl'}>Create your account</Heading></ModalHeader>
+        <ModalHeader color='black'><Heading fontSize={'xl'}>Sign In</Heading></ModalHeader>
+        <ModalHeader color='black'><Heading fontSize={'2xl'}>Log In with email</Heading></ModalHeader>
         <ModalCloseButton color='black' />
         <form style={{ width: '100%', display: "flex",  flexDirection:'column' }} onSubmit={handleSubmit(onFormSubmit)}>
         <ModalBody color='black'>

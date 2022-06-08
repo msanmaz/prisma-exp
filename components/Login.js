@@ -4,8 +4,8 @@ import Link from "next/link";
 import { AppleButton } from "./Buttons/AppleButton";
 import { GoogleButton } from "./Buttons/GoogleButton";
 import { SignInButton } from "./Buttons/SignInButton";
-import CredentialsLogin from "./SignModals/CredentialsLogin";
 import {useRef} from 'react'
+import CredentialsSignUp from "./SignModals/CredentialsSignUp";
 
 function Login({ providers }) {
 
@@ -50,7 +50,7 @@ function RightSide()  {
     <>
 
 
-  <CredentialsLogin isOpen={isOpenLoginModal} onClose={onCloseLoginModal}/>
+  <CredentialsSignUp isOpen={isOpenLoginModal} onClose={onCloseLoginModal}/>
 
       <Box px='2rem' w='full' my='2rem' position={'relative'} >
         <svg className="h-[3rem]" fill="rgb(29, 155, 240)" viewBox="0 0 24 24" aria-hidden='true'>

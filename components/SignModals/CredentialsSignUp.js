@@ -15,7 +15,7 @@ const addressParams = [
 
 
 
-function CredentialsLogin({ isOpen, onClose }) {
+function CredentialsSignUp({ isOpen, onClose }) {
 
     const [show, setShow] = React.useState(false)
     const handleClick = () => setShow(!show)
@@ -112,4 +112,4 @@ function CredentialsLogin({ isOpen, onClose }) {
     )
 }
 
-export default CredentialsLogin
+export default CredentialsSignUp

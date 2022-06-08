@@ -73,7 +73,7 @@ export default NextAuth({
             }    
           });
           result.name && (token.name = result.name)
-          result.author.image && (token.picture = result.author.image)
+          result.author?.image && (token.picture = result.author.image)
 
         }
       

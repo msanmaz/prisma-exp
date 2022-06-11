@@ -3,7 +3,6 @@ import {
   Flex,
   Icon,
   useColorModeValue,
-  Image,
   Button,
   Text,
 } from '@chakra-ui/react';
@@ -21,6 +20,7 @@ import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router';
 import Link from 'next/link'
 import { LibraryIcon } from '@heroicons/react/outline';
+import Image from 'next/image'
 
 
 
@@ -38,6 +38,7 @@ const LinkItems = [
 
 export default function SimpleSidebar() {
 
+
   return (
     <>
       <SidebarContent />
@@ -51,6 +52,7 @@ export default function SimpleSidebar() {
 const SidebarContent = ({ ...rest }) => {
   const { data: session, status } = useSession()
   const router = useRouter()
+  console.log(session.user.image)
   return (
     <Box
       bg={useColorModeValue('white', 'gray.900')}
@@ -65,8 +67,8 @@ const SidebarContent = ({ ...rest }) => {
         <Flex h='10' w='10' _hover={{
           bg: 'cyan.400',
           color: 'white',
-        }} rounded={'3xl'}>
-          <Image mt='8px' ml='7px' src='https://rb.gy/ogau5a' w={6} h={6} />
+        }} rounded={'3xl'} px={1}>
+          <Image className='px-2' src='https://rb.gy/ogau5a' width={28} height={28} />
         </Flex>
 
       </Flex>
@@ -106,7 +108,7 @@ const SidebarContent = ({ ...rest }) => {
    
            }}
           >
-             <Image src={session.user.image} w={10} h={10} rounded='full'/>
+             <Image src={session.user.image} className='rounded-full' width={50} height={50} rounded='full'/>
 
            <Box display={{ base: 'none', md: 'inline' }} px={2}  >
              <Box>

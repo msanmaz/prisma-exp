@@ -1,4 +1,5 @@
-import { HStack, Flex, Box, Image } from '@chakra-ui/react'
+import { HStack, Flex, Box } from '@chakra-ui/react'
+import Image from 'next/image'
 import {
   ChartBarIcon,
   ChatIcon,
@@ -17,6 +18,7 @@ import {
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Link from 'next/link'
 
 function TweetField({ post }) {
   const nolink = false
@@ -25,11 +27,14 @@ function TweetField({ post }) {
       <Flex w='full' my={4} px={4} h={'9rem'} bgColor='gray.700'>
         <HStack w='full'>
           <Box w='10%'>
-            <Image rounded={'9999px'} w={'2.75rem'} h={'2.75rem'} src={post.author.image}/>
+            <Image className='rounded-full' width={50} height={50} src={post.author.image}/>
           </Box>
           <Box w='100%'>
             {post.content}<br/>
+            <Link href={`/${post.author.name}`}>
             {post.author.name}
+              </Link>
+
             <span className='pl-1 text-sm font-light leading-5 color-dimmed'>
 
               <span suppressHydrationWarning>{timeago.format(new Date(post.createdAt))}</span>

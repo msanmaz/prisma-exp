@@ -55,7 +55,7 @@ export default function Home({ tweets, session, providers }) {
 
         <Flex w={{ base: '100%', md: '50%' }} h='full'>
           <Box w='full'>
-            <Feed posts={tweets}>
+            <Feed posts={tweets} page='Home'>
 
               {session ? <Input session={session} /> : <Heading px={3}>You&apos;re not logged in</Heading>}
 

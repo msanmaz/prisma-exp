@@ -2,7 +2,7 @@ import prisma from 'lib/prisma'
 import { getSession } from 'next-auth/react'
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
+  if (req.method !== 'POST' && req.method !== 'DELETE') {
     return res.status(501).end()
   }
 
@@ -18,6 +18,7 @@ export default async function handler(req, res) {
     await prisma.tweet.create({
       data: {
         content: req.body.input,
+        parent: req.body.parent || null,
         author: {
           connect: { id: user.id },
         },
@@ -26,4 +27,31 @@ export default async function handler(req, res) {
     res.end()
     return
   }
+
+
+  if (req.method === 'DELETE') {
+		const id = req.body.id
+
+    const tweet = await prisma.tweet.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        author: true,
+      },
+    })
+
+    if (tweet.author.id !== user.id) {
+      res.status(401).end()
+      return
+    }
+
+    await prisma.tweet.delete({
+      where: { id },
+    })
+    res.status(200).end()
+    return
+  }
+
+
 }

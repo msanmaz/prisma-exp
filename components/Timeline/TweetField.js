@@ -1,29 +1,14 @@
 import { HStack, Flex, Box } from '@chakra-ui/react'
 import Image from 'next/image'
-import {
-  ChartBarIcon,
-  ChatIcon,
-  DotsHorizontalIcon,
-  HeartIcon,
-  ShareIcon,
-  SwitchHorizontalIcon,
-  TrashIcon,
-} from "@heroicons/react/outline";
-import React from 'react'
 import timeago from 'lib/timeago'
-import {
-  HeartIcon as HeartIconFilled,
-  ChatIcon as ChatIconFilled,
-} from "@heroicons/react/solid";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import Link from 'next/link'
 
+
 function TweetField({ post }) {
-  const nolink = false
+
   return (
     <>
+    <Link href={`/${post.author.name}/status/${post.id}`}>
       <Flex w='full' my={4} px={4} h={'9rem'} bgColor='gray.700'>
         <HStack w='full'>
           <Box w='10%'>
@@ -43,6 +28,7 @@ function TweetField({ post }) {
           </Box>
         </HStack>
       </Flex>
+      </Link>
     </>
   )
 }

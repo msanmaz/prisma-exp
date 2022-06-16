@@ -5,9 +5,12 @@ import { FiTrendingUp } from 'react-icons/fi'
 import Input from './Input'
 
 function Feed({ posts, children,page }) {
+
+
   const tweets = useMemo(() => {
-    // if there aren't any products return an empty array, which in the rendering function will turn into 0 product divs
     if (!posts) return []
+
+
     return posts.map((post) => (
       <TweetField key={post.id} id={post.id} post={post} />
     ))

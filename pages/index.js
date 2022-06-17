@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import BottomNav from 'components/BottomNav'
 import Login from 'components/Login'
+import LoadMore from 'components/LoadMore'
 
 
 export default function Home({ tweets, session, providers }) {
@@ -61,6 +62,7 @@ export default function Home({ tweets, session, providers }) {
 
 
             </Feed>
+            <LoadMore tweets={tweets}/>
           </Box>
 
         </Flex>
@@ -105,7 +107,7 @@ export async function getServerSideProps(context) {
 
   const session = await getSession(context);
 
-  let tweets = await getTweets(prisma)
+  let tweets = await getTweets(prisma,2)
   tweets = JSON.parse(JSON.stringify(tweets))
 
 

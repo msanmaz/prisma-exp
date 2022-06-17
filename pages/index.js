@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import Head from 'next/head'
 import { Stack, Box, Flex, Heading } from '@chakra-ui/react'
 import SimpleSidebar from 'components/Sidebar'
@@ -13,9 +14,9 @@ import Login from 'components/Login'
 import LoadMore from 'components/LoadMore'
 
 
-export default function Home({ tweets, session, providers }) {
+export default function Home({ initialTweets, session, providers }) {
+  const [tweets,setTweets] = useState(initialTweets)
   const { status } = useSession()
-
   const router = useRouter()
 
   if (!session || !session.user) return <Login providers={providers} />
@@ -57,12 +58,10 @@ export default function Home({ tweets, session, providers }) {
         <Flex w={{ base: '100%', md: '50%' }} h='full'>
           <Box w='full'>
             <Feed posts={tweets} page='Home'>
+            <Input session={session} tweets={tweets} setTweets={setTweets} />
 
-              {session ? <Input session={session} /> : <Heading px={3}>You&apos;re not logged in</Heading>}
-
-
-            </Feed>
-            <LoadMore tweets={tweets}/>
+              </Feed>
+            <LoadMore tweets={tweets} setTweets={setTweets}/>
           </Box>
 
         </Flex>
@@ -107,12 +106,12 @@ export async function getServerSideProps(context) {
 
   const session = await getSession(context);
 
-  let tweets = await getTweets(prisma,2)
+  let tweets = await getTweets(prisma,4)
   tweets = JSON.parse(JSON.stringify(tweets))
 
 
   return {
-    props: { session, tweets, providers: await getProviders(context) }
+    props: { session, initialTweets:tweets, providers: await getProviders(context) }
   };
 }
 

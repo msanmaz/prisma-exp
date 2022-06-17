@@ -8,6 +8,8 @@ export default async function handler(req, res) {
 
   const session = await getSession({ req })
 
+
+
   const user = await prisma.User.findUnique({
     where: {
       email: session.user.email,
@@ -15,7 +17,7 @@ export default async function handler(req, res) {
   })
 
   if (req.method === 'POST') {
-    await prisma.tweet.create({
+   const tweet = await prisma.tweet.create({
       data: {
         content: req.body.input,
         parent: req.body.parent || null,
@@ -24,8 +26,17 @@ export default async function handler(req, res) {
         },
       },
     })
+
+    const tweetWithAuthorData = await prisma.tweet.findUnique({
+      where: {
+        id:tweet.id,
+      },
+      include:{
+        author:true,
+      }
+    })
+    res.json(tweetWithAuthorData)
     res.end()
-    return
   }
 
 

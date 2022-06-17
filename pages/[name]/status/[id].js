@@ -45,7 +45,7 @@ export default function SingleTweet({ tweet,replies }) {
         )}
      
         <NewReply tweet={tweet}/>
-        <Feed posts={replies}/>
+        <Feed posts={replies} page={'Replies'} session={session}/>
     </>
 
   )

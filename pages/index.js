@@ -12,9 +12,10 @@ import { useEffect } from 'react'
 import BottomNav from 'components/BottomNav'
 import Login from 'components/Login'
 import LoadMore from 'components/LoadMore'
+import Widgets from 'components/Widget/wid-get'
+import data from 'components/Widget/data.json'
 
-
-export default function Home({ initialTweets, session, providers }) {
+export default function Home({ initialTweets,trendingResults,followResults, session, providers }) {
   const [tweets,setTweets] = useState(initialTweets)
   const { status } = useSession()
   const router = useRouter()
@@ -57,7 +58,7 @@ export default function Home({ initialTweets, session, providers }) {
 
         <Flex w={{ base: '100%', md: '50%' }} h='full'>
           <Box w='full'>
-            <Feed posts={tweets} page='Home'>
+            <Feed posts={tweets} setTweets={setTweets} page='Home'>
             <Input session={session} tweets={tweets} setTweets={setTweets} />
 
               </Feed>
@@ -69,9 +70,9 @@ export default function Home({ initialTweets, session, providers }) {
 
 
 
-        <Flex display={{ base: 'none', md: 'flex' }} w="25%" bgColor={'gray.300'} h="full">
+        <Flex display={{ base: 'none', md: 'flex' }} w="25%" h="full">
           <Box>
-            text
+            <Widgets/>
           </Box>
         </Flex>
 
@@ -109,6 +110,7 @@ export async function getServerSideProps(context) {
   let tweets = await getTweets(prisma,4)
   tweets = JSON.parse(JSON.stringify(tweets))
 
+  
 
   return {
     props: { session, initialTweets:tweets, providers: await getProviders(context) }

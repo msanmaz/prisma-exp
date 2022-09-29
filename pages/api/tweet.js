@@ -52,7 +52,7 @@ export default async function handler(req, res) {
       },
     })
 
-    if (tweet.author.id !== user.id) {
+    if (tweet.authorId !== user.id) {
       res.status(401).end()
       return
     }

@@ -15,9 +15,9 @@ function Trending({ result }) {
         </p>
       </div>
 
-      {result.img ? (
+      {result.image ? (
         <Image
-          src={result.img}
+          src={result.image}
           width={70}
           height={70}
           objectFit="cover"

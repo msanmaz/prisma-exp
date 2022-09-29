@@ -3,6 +3,7 @@ import {React,useMemo} from 'react'
 import TweetField from './TweetField'
 import { FiTrendingUp } from 'react-icons/fi'
 import Input from './Input'
+import Posts from './Posts'
 
 function Feed({ posts, setTweets,page,session,children }) {
   console.log('feed',posts)
@@ -12,7 +13,7 @@ function Feed({ posts, setTweets,page,session,children }) {
 
 
     return posts.map((post) => (
-      <TweetField key={post.id} id={post.id} post={post} />
+      <Posts key={post.id} id={post.id} post={post} />
     ))
   }, [posts])
   return (
@@ -28,9 +29,7 @@ function Feed({ posts, setTweets,page,session,children }) {
         {children}
 
 
-        <div className="flex justify-center items-center flex-wrap">
           {tweets}
-        </div>
 
       </div>
 
